@@ -1,0 +1,114 @@
+/* General setup */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  min-width: 1000px;
+  max-width: 1400px;
+}
+
+/* Layout */
+
+section {
+  float: left;
+  width: 50%;
+}
+
+aside {
+  float: left;
+  width: 30%;
+}
+
+nav {
+  float: left;
+  width: 20%;
+}
+
+footer {
+  clear: both;
+}
+
+header, section, aside, nav, footer {
+  padding: 20px;
+}
+
+/* header and footer */
+
+header, footer {
+  border-top: 5px solid #a66;
+  border-bottom: 5px solid #a66;
+}
+
+/* WRITE YOUR CODE BELOW HERE */
+
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+header {
+  text-align: center;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+p {
+  line-height: 1.5;
+}
+
+section li {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+aside ul {
+  height: 100%;
+}
+
+aside li {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+a {
+  color: #a66;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+section p a {
+  background: url(img/external-link-52.png) no-repeat 100% 0;
+  background-size: 16px 16px;
+  padding-right: 19px;
+}
+
+nav li {
+  text-align: center;
+  list-style-type: none;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 50px;
+  border: 0.5px solid #a66;
+}
+
+nav a {
+  font-size: 1em;
+  text-decoration: none;
+}
+
+footer {
+  font-size: 12px;
+  color: grey;
+}
