@@ -1,47 +1,85 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!DOCTYPE html>
+<html>
+  <head>
     <meta charset="utf-8">
-    <title>A simple grid-based responsive design</title>
-    <style>
-      body {
-        font: 1.2em Helvetica, Arial, sans-serif;
-        margin: 20px;
-        padding: 0;
-        background-color: #eee;
-      }
-      .wrapper {
-        max-width: 960px;
-        margin: 2em auto;
+
+    <title>Our superheroes</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="CSSPrc.css">
+  </head>
+
+  <body>
+
+      <header>
+
+      </header>
+
+      <section>
+
+      </section>
+
+    <script>
+
+      const header = document.querySelector('header');
+      const section = document.querySelector('section');
+
+      var requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+      var request = new XMLHttpRequest();
+      // 俩强制参数，HTTP 方法 'GET' 获取简单数据，第二个 URL。
+      request.open('GET', requestURL);
+      request.responseType = 'json';
+      request.send();
+      request.onload = function() {
+        var superHeroes = request.response;
+        populateHeader(superHeroes);
+        showHeroes(superHeroes);
       }
 
-      .col1,
-      .col2 {
-        background-color: #fff;
+      function populateHeader(jsonObj) {
+        var myH1 = document.createElement('h1');
+        myH1.textContent = jsonObj['squadName'];
+        header.appendChild(myH1);
+
+        var myPara = document.createElement('p');
+        myPara.textContent = 'Hometown: ' + jsonObj['homeTown'] + ' // Formed: ' + jsonObj['formed'];
+        header.appendChild(myPara);
       }
 
-      @media screen and (min-width: 600px) {
-        .wrapper {
-          display: grid;
-          grid-template-columns: 1fr 2fr;
-          column-gap: 5%;
+      function showHeroes(jsonObj) {
+        var heroes = jsonObj['members'];
+            
+        for(i = 0; i < heroes.length; i++) {
+          var myArticle = document.createElement('article');
+          var myH2 = document.createElement('h2');
+          var myPara1 = document.createElement('p');
+          var myPara2 = document.createElement('p');
+          var myPara3 = document.createElement('p');
+          var myList = document.createElement('ul');
+
+          myH2.textContent = heroes[i].name;
+          myPara1.textContent = 'Secret identity: ' + heroes[i].secretIdentity;
+          myPara2.textContent = 'Age: ' + heroes[i].age;
+          myPara3.textContent = 'Superpowers:';
+              
+          var superPowers = heroes[i].powers;
+          for(j = 0; j < superPowers.length; j++) {
+            var listItem = document.createElement('li');
+            listItem.textContent = superPowers[j];
+            myList.appendChild(listItem);
+          }
+
+          // section > myArticle > (myH2 - myPara1 - myPara2 - myPara3 - myList)
+          myArticle.appendChild(myH2);
+          myArticle.appendChild(myPara1);
+          myArticle.appendChild(myPara2);
+          myArticle.appendChild(myPara3);
+          myArticle.appendChild(myList);
+
+          section.appendChild(myArticle);
         }
       }
-    </style>
-</head>
 
-<body>
-
-    <div class="wrapper">
-      <div class="col1">
-        <p>This layout is responsive. See what happens if you make the browser window wider or narrow.</p>
-      </div>
-      <div class="col2">
-          <p>One November night in the year 1782, so the story runs, two brothers sat over their winter fire in the little French town of Annonay, watching the grey smoke-wreaths from the hearth curl up the wide chimney. Their names were Stephen and Joseph Montgolfier, they were papermakers by trade, and were noted as possessing thoughtful minds and a deep interest in all scientific knowledge and new discovery.</p>
-          <p>Before that night—a memorable night, as it was to prove—hundreds of millions of people had watched the rising smoke-wreaths of their fires without drawing any special inspiration from the fact.”</p>
-      </div>
-
-    </div>
-</body>
-
+    </script>
+  </body>
 </html>
