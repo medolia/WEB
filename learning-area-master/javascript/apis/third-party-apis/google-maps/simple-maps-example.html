@@ -23,9 +23,13 @@
         disableDefaultUI: true
       }
       var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+      var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+      });
     }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=ENTER-API-KEY-HERE&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJkXU1Xh9icF1rLesDbOIS26Bp0D4DKkI&callback=initMap"
     async defer></script>
   </body>
 </html>

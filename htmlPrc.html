@@ -1,83 +1,57 @@
+  
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-
-    <title>Our superheroes</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
-    <link rel="stylesheet" href="CSSPrc.css">
+    <title>Canvas</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
   </head>
-
   <body>
-
-      <header>
-
-      </header>
-
-      <section>
-
-      </section>
+    <canvas class="myCanvas">
+      <p>Add suitable fallback here.</p>
+    </canvas>
 
     <script>
 
-      const header = document.querySelector('header');
-      const section = document.querySelector('section');
+      const canvas = document.querySelector('.myCanvas');
+      const width = canvas.width = window.innerWidth;
+      const height = canvas.height = window.innerHeight;
+      const ctx = canvas.getContext('2d');
 
-      var requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
-      var request = new XMLHttpRequest();
-      // 俩强制参数，HTTP 方法 'GET' 获取简单数据，第二个 URL。
-      request.open('GET', requestURL);
-      request.responseType = 'json';
-      request.send();
-      request.onload = function() {
-        var superHeroes = request.response;
-        populateHeader(superHeroes);
-        showHeroes(superHeroes);
+      ctx.fillStyle = 'rgb(0,0,0)';
+      ctx.fillRect(0,0,width,height);
+
+      ctx.translate(width/2, height/2);
+
+      function degToRad(degrees) {
+        return degrees * Math.PI / 180;
+      };
+
+      function rand(min, max) {
+        return Math.floor(Math.random() * (max-min+1)) + (min);
       }
 
-      function populateHeader(jsonObj) {
-        var myH1 = document.createElement('h1');
-        myH1.textContent = jsonObj['squadName'];
-        header.appendChild(myH1);
+      var length = 250;
+      var moveOffset = 20;
 
-        var myPara = document.createElement('p');
-        myPara.textContent = 'Hometown: ' + jsonObj['homeTown'] + ' // Formed: ' + jsonObj['formed'];
-        header.appendChild(myPara);
-      }
+      for(var i = 0; i < length; i++) {
+        ctx.fillStyle = 'rgba(' + (255-length) + ', 0, ' + (255-length) + ', 0.9)';
+        ctx.beginPath();
+        ctx.moveTo(moveOffset, moveOffset);
+        ctx.lineTo(moveOffset+length, moveOffset);
+        var triHeight = length/2 * Math.tan(degToRad(60));
+        ctx.lineTo(moveOffset+(length/2), moveOffset+triHeight);
+        ctx.lineTo(moveOffset, moveOffset);
+        ctx.fill();
 
-      function showHeroes(jsonObj) {
-        var heroes = jsonObj['members'];
-            
-        for(i = 0; i < heroes.length; i++) {
-          var myArticle = document.createElement('article');
-          var myH2 = document.createElement('h2');
-          var myPara1 = document.createElement('p');
-          var myPara2 = document.createElement('p');
-          var myPara3 = document.createElement('p');
-          var myList = document.createElement('ul');
-
-          myH2.textContent = heroes[i].name;
-          myPara1.textContent = 'Secret identity: ' + heroes[i].secretIdentity;
-          myPara2.textContent = 'Age: ' + heroes[i].age;
-          myPara3.textContent = 'Superpowers:';
-              
-          var superPowers = heroes[i].powers;
-          for(j = 0; j < superPowers.length; j++) {
-            var listItem = document.createElement('li');
-            listItem.textContent = superPowers[j];
-            myList.appendChild(listItem);
-          }
-
-          // section > myArticle > (myH2 - myPara1 - myPara2 - myPara3 - myList)
-          myArticle.appendChild(myH2);
-          myArticle.appendChild(myPara1);
-          myArticle.appendChild(myPara2);
-          myArticle.appendChild(myPara3);
-          myArticle.appendChild(myList);
-
-          section.appendChild(myArticle);
-        }
+        length--;
+        moveOffset += 0.7;
+        ctx.rotate(degToRad(5));
       }
 
     </script>
